@@ -1,0 +1,20 @@
+---
+import { getCollection } from "astro:content";
+import ColumnPage from "../components/ColumnPage.astro";
+
+const posts = (await getCollection("blog"))
+  .filter((post) => post.data.tags?.includes("电脑经验"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<ColumnPage
+  title="电脑经验分享"
+  eyebrow="能复用的方法"
+  description="这里放一些我自己真的用过、踩过坑、最后整理出来的电脑经验。它可以是 Windows、浏览器、GitHub、Cloudflare、软件安装，也可以是一些不复杂但很实用的小问题。"
+  points={[
+    { title: "问题场景", desc: "先说明我遇到了什么问题，避免变成脱离场景的空教程。" },
+    { title: "处理方法", desc: "写清楚我实际做了什么、哪些方法有用、哪些方法没用。" },
+    { title: "注意事项", desc: "把容易误判的地方和后续检查步骤也写进去，方便以后回看。" },
+  ]}
+  posts={posts}
+/>

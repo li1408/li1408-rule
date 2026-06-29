@@ -1,0 +1,20 @@
+---
+import { getCollection } from "astro:content";
+import ColumnPage from "../components/ColumnPage.astro";
+
+const posts = (await getCollection("blog"))
+  .filter((post) => post.data.tags?.includes("心理历程"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<ColumnPage
+  title="kli1408的心理历程"
+  eyebrow="克制的复盘"
+  description="这里记录一些改变我想法的人生节点、经验总结和心理变化。它不是纯日记，也不假装成熟，更像把当时发生了什么、我怎么想、后来怎么变了整理下来。"
+  points={[
+    { title: "发生了什么", desc: "先把事情说清楚，不急着给它下结论。" },
+    { title: "当时怎么想", desc: "保留当时真实的拧巴、犹豫、兴奋或者不安。" },
+    { title: "现在怎么看", desc: "回头复盘这件事给我带来的变化，写成能给未来自己看的记录。" },
+  ]}
+  posts={posts}
+/>

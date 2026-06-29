@@ -11,53 +11,55 @@ const last_posts = posts.slice(0, 3);
 
 <BaseLayout sideBarActiveItemID="home">
   <div class="pb-12 mt-5">
-    <div class="text-xl py-1">Hey there 👋</div>
-    <div class="text-5xl font-bold">I'm Manuel Ernesto</div>
-    <div class="text-3xl py-3 font-bold">Software Engineer and Entrepreneur</div>
+    <div class="text-xl py-1">你好，我是 140</div>
+    <div class="text-5xl font-bold">li1408</div>
+    <div class="text-3xl py-3 font-bold">关于一个拧巴的人</div>
     <div class="py-2">
       <text class="text-lg">
-        This is <b>Astrofy</b> a free and open-source template for your Personal Portfolio Website built with Astro and TailwindCSS.
-        Create in minutes a website with Blog, CV, Project Section, Store and RSS Feed. I hope you find
-        it useful!
+        这里会慢慢放一些学习、生活、电脑技术和折腾记录。内容还在整理中，先把这个小站搭起来。
       </text>
     </div>
     <div class="mt-8">
-      <a class="btn" href="https://twitter.com/manuelernestog" target="_blank"> Let's connect!</a>
-      <a href="https://github.com/manuelernestog/astrofy" target="_blank" class="btn btn-outline ml-5">
-        Get This template
+      <a class="btn" href="/blog/">看文章</a>
+      <a href="/projects" class="btn btn-outline ml-5">
+        看项目
       </a>
     </div>
   </div>
 
   <div>
-    <div class="text-3xl w-full font-bold mb-2">My last projects {"</>"}</div>
+    <div class="text-3xl w-full font-bold mb-2">最近折腾 {"</>"}</div>
   </div>
 
   <HorizontalCard
-    title="Demo Project 1"
+    title="个人研究记录"
     img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
-    badge="NEW"
+    desc="记录我研究一个问题的过程，比如解码器、网站部署、AI 协作项目。重点不是只写结论，而是把最初想法、找过的工具、卡住的地方和心理变化一起留下来。"
+    url="/research/"
+    target="_self"
+    badge="研究中"
   />
   <div class="divider my-0"></div>
   <HorizontalCard
-    title="Demo Project 2"
+    title="电脑技巧分享"
     img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
+    desc="整理 Windows 使用、软件安装、浏览器问题、GitHub、Cloudflare 和一些自己踩过坑后真正用得上的方法。"
+    url="/computer-experience/"
+    target="_self"
+    badge="技巧"
   />
   <div class="divider my-0"></div>
   <HorizontalCard
-    title="Demo Project 3"
+    title="kli1408的心理历程"
     img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
-    badge="FOSS"
+    desc="记录学习、上课、实习和自我拉扯的过程。这里会更偏个人感受，写下那些不一定成熟但真实发生过的变化。"
+    url="/journey/"
+    target="_self"
+    badge="记录"
   />
 
   <div>
-    <div class="text-3xl w-full font-bold mb-5 mt-10">Latest from blog</div>
+    <div class="text-3xl w-full font-bold mb-5 mt-10">最新文章</div>
   </div>
 
   {

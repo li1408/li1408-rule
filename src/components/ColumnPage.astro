@@ -1,0 +1,54 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HorizontalCard from "./HorizontalCard.astro";
+import createSlug from "../lib/createSlug";
+
+const { title, eyebrow, description, points, posts } = Astro.props;
+---
+
+<BaseLayout title={`${title} | li1408`} sideBarActiveItemID="blog">
+  <section class="mb-8">
+    <div class="badge badge-secondary mb-4">{eyebrow}</div>
+    <h1 class="text-4xl font-bold mb-4">{title}</h1>
+    <p class="text-lg leading-8 opacity-80">{description}</p>
+  </section>
+
+  <section class="mb-10">
+    <div class="text-2xl font-bold mb-4">这里会写什么</div>
+    <div class="grid gap-3 md:grid-cols-3">
+      {points.map((point) => (
+        <div class="rounded-lg border border-base-300 bg-base-100 p-4">
+          <div class="font-bold mb-2">{point.title}</div>
+          <p class="leading-7 opacity-80">{point.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section>
+    <div class="text-2xl font-bold mb-4">相关文章</div>
+    {
+      posts.length === 0 ? (
+        <div class="rounded-lg border border-base-300 bg-base-100 p-5">
+          <p class="leading-8 opacity-80">
+            这个栏目还在整理中。之后会把合适的文章放到这里。
+          </p>
+        </div>
+      ) : (
+        posts.map((post) => (
+          <>
+            <HorizontalCard
+              title={post.data.title}
+              img={post.data.heroImage}
+              desc={post.data.description}
+              url={"/blog/" + createSlug(post.data.title, post.slug)}
+              target="_self"
+              badge={post.data.badge}
+            />
+            <div class="divider my-0" />
+          </>
+        ))
+      )
+    }
+  </section>
+</BaseLayout>

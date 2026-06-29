@@ -1,0 +1,20 @@
+---
+import { getCollection } from "astro:content";
+import ColumnPage from "../components/ColumnPage.astro";
+
+const posts = (await getCollection("blog"))
+  .filter((post) => post.data.tags?.includes("个人研究"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<ColumnPage
+  title="个人研究记录"
+  eyebrow="从问题开始"
+  description="这里记录我研究一个问题的完整过程。重点不是只给结论，而是把最初的疑问、找到的工具、试错过程、卡住的地方和心理变化一起留下来。"
+  points={[
+    { title: "最初想法", desc: "先写清楚我为什么开始研究这个东西，以及一开始以为它是什么。" },
+    { title: "工具和过程", desc: "记录我找到的资料、工具、项目和测试方法，保留中间走过的弯路。" },
+    { title: "暂时理解", desc: "不强装完全懂，只写当前理解到哪里，还有哪些地方没弄明白。" },
+  ]}
+  posts={posts}
+/>

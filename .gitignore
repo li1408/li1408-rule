@@ -4,6 +4,18 @@ dist/
 # dependencies
 node_modules/
 
+# local package-manager state
+.config/
+.corepack/
+.npm-cache/
+.pnpm-cache/
+.pnpm-global/
+.pnpm-global-bin/
+.pnpm-state/
+.pnpm-store/
+.tmp/
+.tools/
+
 # logs
 npm-debug.log*
 yarn-debug.log*

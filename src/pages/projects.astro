@@ -3,49 +3,48 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import HorizontalCard from "../components/HorizontalCard.astro";
 ---
 
-<BaseLayout title = "Projects" sideBarActiveItemID="projects">
-  <div>
-    <div class="text-3xl w-full font-bold mb-5">Projects Header</div>
+<BaseLayout title="项目 | li1408" sideBarActiveItemID="projects">
+  <div class="mb-8">
+    <div class="text-3xl w-full font-bold mb-3">项目</div>
+    <p class="text-lg leading-8 opacity-80">
+      这里放一些我真正部署过、折腾过、打磨过的网站。它们不一定都很复杂，但每一个都对应一段学习过程。
+    </p>
   </div>
 
   <HorizontalCard
-    title="Demo Project 1"
-    img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
-    badge="NEW"
+    title="see140 视觉交互网站"
+    img="/see140-hero.png"
+    desc="一个用摄像头识别手势的 3D 画板。可以用手画线、双手缩放、切换重力模式，也有粒子清除和黑白启动动画。"
+    url="/blog/see140-gesture-canvas/"
+    target="_self"
+    badge="个人创作"
+    actionLabel="查看记录"
   />
   <div class="divider my-0"></div>
   <HorizontalCard
-    title="Demo Project 2"
+    title="GitHub 资源部署记录"
     img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
-  />
-
-  <div>
-    <div class="text-3xl w-full font-bold mb-5 mt-10">Projects Header</div>
-  </div>
-
-  <HorizontalCard
-    title="Demo Project 3"
-    img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
-    badge="FOSS"
+    desc="我第一次正式在 GitHub 上找资源，参考零度解说的教程，把一个影视、直播、资源类项目部署到自己的电脑并上线到 Cloudflare。"
+    url="https://lsldsb.dpdns.org"
+    badge="Cloudflare"
+    actionLabel="打开网站"
   />
   <div class="divider my-0"></div>
   <HorizontalCard
-    title="Demo Project 4"
+    title="NewsNow 信息聚合站"
     img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
+    desc="GitHub 上的主流平台信息聚合项目。我曾经把它部署到 Cloudflare Pages，也尝试过绑定自己的域名。"
+    url="https://newsnow-76c.pages.dev/"
+    badge="Pages"
+    actionLabel="打开网站"
   />
   <div class="divider my-0"></div>
   <HorizontalCard
-    title="Demo Project 5"
+    title="140035.xyz 手机卡推荐页"
     img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
+    desc="第一次接触 Codex 时，用很简单的话让它帮我写出来的网站。页面参考苹果官网的大留白和圆润设计，用来展示大流量手机卡推荐。"
+    url="https://140035.xyz/?from=li1408-blog"
+    badge="Codex"
+    actionLabel="打开网站"
   />
 </BaseLayout>
