@@ -1,0 +1,856 @@
+<script is:inline>
+  (() => {
+    const storageKey = "li1408_startup_intro_seen";
+    const forceIntro = new URLSearchParams(window.location.search).has("intro");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    try {
+      if (!forceIntro && (reduceMotion || sessionStorage.getItem(storageKey) === "1")) {
+        document.documentElement.classList.add("li1408-skip-startup");
+      }
+    } catch {
+      if (reduceMotion) document.documentElement.classList.add("li1408-skip-startup");
+    }
+  })();
+</script>
+
+<style is:global>
+  :root.li1408-skip-startup .li1408-startup-intro,
+  :root.li1408-skip-startup .li1408-startup-wipe {
+    display: none !important;
+  }
+
+  body.li1408-intro-playing {
+    overflow: hidden;
+  }
+
+  body.li1408-intro-playing .drawer-content main > *,
+  body.li1408-intro-playing .drawer-content > .sticky,
+  body.li1408-intro-playing footer,
+  body.li1408-intro-playing .drawer-side {
+    opacity: 0;
+    transform: translate3d(0, 1.4rem, 0) scale(0.985);
+    will-change: opacity, transform;
+  }
+
+  body.li1408-intro-playing .drawer-side {
+    transform: translate3d(-1.4rem, 0, 0) scale(0.985);
+  }
+
+  body.li1408-intro-revealing .drawer-content main > *,
+  body.li1408-intro-revealing .drawer-content > .sticky,
+  body.li1408-intro-revealing footer {
+    animation: li1408PageFlyIn 980ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  body.li1408-intro-revealing .drawer-side {
+    animation: li1408SidebarFlyIn 980ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  body.li1408-intro-revealing .drawer-content > .sticky {
+    animation-delay: 70ms;
+  }
+
+  body.li1408-intro-revealing .drawer-content main > :nth-child(1) {
+    animation-delay: 120ms;
+  }
+
+  body.li1408-intro-revealing .drawer-content main > :nth-child(2) {
+    animation-delay: 210ms;
+  }
+
+  body.li1408-intro-revealing .drawer-content main > :nth-child(n + 3) {
+    animation-delay: 300ms;
+  }
+
+  body.li1408-intro-revealing footer {
+    animation-delay: 380ms;
+  }
+
+  body.li1408-intro-complete .drawer-content main > *,
+  body.li1408-intro-complete .drawer-content > .sticky,
+  body.li1408-intro-complete footer,
+  body.li1408-intro-complete .drawer-side {
+    opacity: 1;
+    transform: none;
+  }
+
+  .li1408-startup-intro {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    min-height: 100svh;
+    overflow: hidden;
+    background: #080808;
+    color: #f8f8f8;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: clamp(1rem, 3vw, 2rem);
+    isolation: isolate;
+    contain: layout paint style;
+  }
+
+  .li1408-startup-intro::before,
+  .li1408-startup-intro::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .li1408-startup-intro::before {
+    z-index: -2;
+    inset: -48px;
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.34;
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+    animation: li1408GridDrift 3600ms linear infinite;
+  }
+
+  .li1408-startup-intro::after {
+    z-index: -1;
+    opacity: 0.16;
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.16), transparent 22%),
+      radial-gradient(circle at 70% 65%, rgba(255, 255, 255, 0.11), transparent 30%),
+      repeating-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.06) 0,
+        rgba(255, 255, 255, 0.06) 1px,
+        transparent 1px,
+        transparent 4px
+      );
+    mix-blend-mode: screen;
+    will-change: transform, opacity;
+    animation: li1408FilmPulse 420ms steps(2) infinite;
+  }
+
+  .li1408-intro-top,
+  .li1408-intro-bottom {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    font-size: clamp(0.68rem, 1.3vw, 0.82rem);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .li1408-intro-top span:nth-child(2),
+  .li1408-intro-bottom span:nth-child(2) {
+    justify-self: center;
+  }
+
+  .li1408-intro-top span:last-child,
+  .li1408-intro-bottom span:last-child {
+    justify-self: end;
+  }
+
+  .li1408-intro-center {
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding: 2rem 0;
+  }
+
+  .li1408-boot-frame {
+    position: relative;
+    width: min(88vw, 58rem);
+    min-height: min(58svh, 34rem);
+    display: grid;
+    place-items: center;
+    contain: layout paint;
+  }
+
+  .li1408-boot-frame::before,
+  .li1408-boot-frame::after {
+    content: "";
+    position: absolute;
+    width: 7.5rem;
+    height: 7.5rem;
+    border-color: rgba(255, 255, 255, 0.34);
+    pointer-events: none;
+  }
+
+  .li1408-boot-frame::before {
+    left: 0;
+    top: 0;
+    border-left: 1px solid;
+    border-top: 1px solid;
+  }
+
+  .li1408-boot-frame::after {
+    right: 0;
+    bottom: 0;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+  }
+
+  .li1408-signal {
+    position: absolute;
+    inset: 13% 8%;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    opacity: 0;
+    transform: scaleX(0.25);
+    will-change: transform, opacity;
+    animation: li1408SignalOpen 2600ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  }
+
+  .li1408-scan-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow: 0 0 22px rgba(255, 255, 255, 0.62);
+    will-change: transform, opacity;
+    animation: li1408ScanMove 2100ms cubic-bezier(0.76, 0, 0.24, 1) 320ms forwards;
+  }
+
+  .li1408-portrait-signal {
+    position: absolute;
+    width: clamp(8rem, 22vw, 15rem);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    overflow: hidden;
+    opacity: 0;
+    filter: grayscale(1) contrast(1.2);
+    transform: translateY(0.75rem) scale(0.86);
+    will-change: transform, opacity, clip-path;
+    animation: li1408PortraitReveal 1550ms cubic-bezier(0.16, 1, 0.3, 1) 1200ms forwards;
+  }
+
+  .li1408-portrait-signal::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent 0 5px,
+        rgba(255, 255, 255, 0.14) 5px 6px
+      ),
+      radial-gradient(circle at 50% 50%, transparent 0 58%, rgba(8, 8, 8, 0.94) 70%);
+    mix-blend-mode: screen;
+  }
+
+  .li1408-portrait-signal img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 54% 34%;
+    transform: scale(1.32);
+  }
+
+  .li1408-word-stack {
+    position: relative;
+    text-align: center;
+    z-index: 2;
+    contain: layout paint;
+  }
+
+  .li1408-micro-label {
+    margin: 0 0 0.7rem;
+    font-size: clamp(0.72rem, 1.35vw, 0.88rem);
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.68);
+    opacity: 0;
+    transform: translateY(0.5rem);
+    animation: li1408FadeUp 650ms cubic-bezier(0.16, 1, 0.3, 1) 240ms forwards;
+  }
+
+  .li1408-brand {
+    position: relative;
+    margin: 0;
+    font-size: clamp(3.4rem, 15vw, 11rem);
+    line-height: 0.82;
+    letter-spacing: 0;
+    font-weight: 820;
+    transform: translateZ(0);
+    will-change: transform, opacity;
+  }
+
+  .li1408-brand .li1408-char {
+    display: inline-block;
+    opacity: 0;
+    transform: translate(var(--x), var(--y)) scaleY(0.72);
+    filter: blur(5px);
+    backface-visibility: hidden;
+    will-change: transform, opacity, filter;
+    animation: li1408CharLock 940ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: calc(420ms + var(--i) * 70ms);
+  }
+
+  .li1408-brand::before,
+  .li1408-brand::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    color: rgba(255, 255, 255, 0.3);
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: 0;
+    will-change: transform, opacity, clip-path;
+  }
+
+  .li1408-brand::before {
+    transform: translate(-0.04em, -0.02em);
+    animation: li1408GlitchA 960ms steps(2) 820ms 2;
+  }
+
+  .li1408-brand::after {
+    transform: translate(0.045em, 0.02em);
+    animation: li1408GlitchB 780ms steps(2) 900ms 2;
+  }
+
+  .li1408-subline {
+    display: flex;
+    justify-content: center;
+    gap: clamp(0.6rem, 2.6vw, 1.3rem);
+    flex-wrap: wrap;
+    margin-top: clamp(1rem, 3vw, 1.7rem);
+    color: rgba(255, 255, 255, 0.78);
+    font-size: clamp(0.72rem, 1.45vw, 0.92rem);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .li1408-subline span {
+    opacity: 0;
+    transform: translateY(0.55rem);
+    animation: li1408FadeUp 720ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: calc(1050ms + var(--i) * 120ms);
+  }
+
+  .li1408-progress-panel {
+    position: absolute;
+    left: clamp(0rem, 3vw, 2rem);
+    bottom: clamp(1rem, 5vw, 2.7rem);
+    width: min(23rem, 80vw);
+    color: rgba(255, 255, 255, 0.86);
+    opacity: 0;
+    contain: layout paint;
+    will-change: transform, opacity;
+    animation: li1408FadeUp 600ms cubic-bezier(0.16, 1, 0.3, 1) 760ms forwards;
+  }
+
+  .li1408-progress-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+    margin-bottom: 0.65rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+  }
+
+  .li1408-count {
+    min-width: 4.8rem;
+    text-align: right;
+    color: #ffffff;
+    font-size: 1.15rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .li1408-track {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.22);
+    overflow: hidden;
+  }
+
+  .li1408-bar {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.62);
+    transform: scaleX(0);
+    transform-origin: left center;
+    will-change: transform;
+  }
+
+  .li1408-status {
+    min-height: 1.1rem;
+    margin-top: 0.7rem;
+    color: rgba(255, 255, 255, 0.56);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .li1408-keyword-rail {
+    position: absolute;
+    right: clamp(0rem, 3vw, 2rem);
+    top: clamp(1rem, 6vw, 3rem);
+    display: grid;
+    gap: 0.6rem;
+    text-align: right;
+    font-size: clamp(0.72rem, 1.2vw, 0.84rem);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.52);
+    contain: layout paint;
+  }
+
+  .li1408-keyword-rail span {
+    opacity: 0;
+    transform: translateX(1rem);
+    will-change: transform, opacity;
+    animation: li1408RailIn 580ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: calc(1300ms + var(--i) * 135ms);
+  }
+
+  .li1408-startup-wipe {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    pointer-events: none;
+    background: #ffffff;
+    transform: translateX(-102%);
+    will-change: transform;
+  }
+
+  .li1408-startup-intro.is-leaving {
+    will-change: transform, opacity;
+    animation: li1408IntroLift 720ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  }
+
+  .li1408-startup-intro.is-leaving + .li1408-startup-wipe {
+    animation: li1408WipeAcross 1180ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  }
+
+  @keyframes li1408PageFlyIn {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 1.4rem, 0) scale(0.985);
+    }
+
+    55% {
+      opacity: 1;
+    }
+
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes li1408SidebarFlyIn {
+    0% {
+      opacity: 0;
+      transform: translate3d(-1.4rem, 0, 0) scale(0.985);
+    }
+
+    55% {
+      opacity: 1;
+    }
+
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes li1408GridDrift {
+    to {
+      transform: translate3d(48px, 48px, 0);
+    }
+  }
+
+  @keyframes li1408FilmPulse {
+    0%,
+    100% {
+      transform: translate(0);
+    }
+
+    50% {
+      transform: translate(1px, -1px);
+    }
+  }
+
+  @keyframes li1408SignalOpen {
+    0% {
+      opacity: 0;
+      transform: scaleX(0.25);
+    }
+
+    28% {
+      opacity: 0.55;
+    }
+
+    100% {
+      opacity: 0.18;
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes li1408ScanMove {
+    0% {
+      transform: translateY(0);
+      opacity: 0;
+    }
+
+    16% {
+      opacity: 1;
+    }
+
+    82% {
+      opacity: 0.86;
+    }
+
+    100% {
+      transform: translateY(24rem);
+      opacity: 0;
+    }
+  }
+
+  @keyframes li1408PortraitReveal {
+    0% {
+      opacity: 0;
+      transform: translateY(0.75rem) scale(0.86);
+      clip-path: inset(50% 0 50% 0);
+    }
+
+    45% {
+      opacity: 0.42;
+    }
+
+    100% {
+      opacity: 0.2;
+      transform: translateY(0) scale(1);
+      clip-path: inset(0 0 0 0);
+    }
+  }
+
+  @keyframes li1408FadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes li1408CharLock {
+    72% {
+      filter: blur(0);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translate(0, 0) scaleY(1);
+      filter: blur(0);
+    }
+  }
+
+  @keyframes li1408GlitchA {
+    0%,
+    100% {
+      opacity: 0;
+    }
+
+    30% {
+      opacity: 0.78;
+      clip-path: inset(12% 0 62% 0);
+    }
+
+    58% {
+      opacity: 0.55;
+      clip-path: inset(58% 0 24% 0);
+    }
+  }
+
+  @keyframes li1408GlitchB {
+    0%,
+    100% {
+      opacity: 0;
+    }
+
+    26% {
+      opacity: 0.54;
+      clip-path: inset(70% 0 8% 0);
+    }
+
+    62% {
+      opacity: 0.38;
+      clip-path: inset(20% 0 52% 0);
+    }
+  }
+
+  @keyframes li1408RailIn {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes li1408IntroLift {
+    0% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    100% {
+      opacity: 0;
+      transform: translateX(2.5rem);
+    }
+  }
+
+  @keyframes li1408WipeAcross {
+    0% {
+      transform: translateX(-102%);
+    }
+
+    45% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(102%);
+    }
+  }
+
+  @media (max-width: 820px) {
+    .li1408-keyword-rail {
+      display: none;
+    }
+
+    .li1408-intro-top,
+    .li1408-intro-bottom {
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+
+    .li1408-intro-top span,
+    .li1408-intro-bottom span,
+    .li1408-intro-top span:nth-child(2),
+    .li1408-intro-bottom span:nth-child(2),
+    .li1408-intro-top span:last-child,
+    .li1408-intro-bottom span:last-child {
+      justify-self: start;
+    }
+
+    .li1408-boot-frame {
+      width: 100%;
+      min-height: 55svh;
+    }
+
+    .li1408-brand {
+      font-size: clamp(3rem, 13vw, 3.45rem);
+    }
+
+    .li1408-boot-frame::before,
+    .li1408-boot-frame::after {
+      width: 4rem;
+      height: 4rem;
+    }
+
+    .li1408-progress-panel {
+      left: 0;
+      right: 0;
+      bottom: 0.8rem;
+      width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .li1408-startup-intro,
+    .li1408-startup-wipe {
+      display: none !important;
+    }
+  }
+</style>
+
+<section class="li1408-startup-intro" id="li1408-startup-intro" aria-hidden="true">
+  <div class="li1408-intro-top">
+    <span>personal archive</span>
+    <span>rule 140</span>
+    <span>notes online</span>
+  </div>
+
+  <div class="li1408-intro-center">
+    <div class="li1408-boot-frame">
+      <div class="li1408-signal">
+        <div class="li1408-scan-line"></div>
+      </div>
+
+      <div class="li1408-portrait-signal">
+        <img src="/avatar.jpg" alt="" loading="eager" decoding="async" />
+      </div>
+
+      <div class="li1408-keyword-rail">
+        <span style="--i: 0">learning</span>
+        <span style="--i: 1">life</span>
+        <span style="--i: 2">computer</span>
+        <span style="--i: 3">projects</span>
+        <span style="--i: 4">notes</span>
+      </div>
+
+      <div class="li1408-word-stack">
+        <p class="li1408-micro-label">initializing a small site</p>
+        <h1 class="li1408-brand" data-text="li1408" aria-label="li1408">
+          <span class="li1408-char" style="--i: 0; --x: -0.34em; --y: -0.2em">l</span>
+          <span class="li1408-char" style="--i: 1; --x: 0.18em; --y: 0.32em">i</span>
+          <span class="li1408-char" style="--i: 2; --x: -0.16em; --y: 0.16em">1</span>
+          <span class="li1408-char" style="--i: 3; --x: 0.28em; --y: -0.26em">4</span>
+          <span class="li1408-char" style="--i: 4; --x: -0.2em; --y: 0.28em">0</span>
+          <span class="li1408-char" style="--i: 5; --x: 0.3em; --y: -0.1em">8</span>
+        </h1>
+        <div class="li1408-subline">
+          <span style="--i: 0">learning</span>
+          <span style="--i: 1">recording</span>
+          <span style="--i: 2">tinkering</span>
+        </div>
+      </div>
+
+      <div class="li1408-progress-panel">
+        <div class="li1408-progress-meta">
+          <span id="li1408-status-title">sorting fragments</span>
+          <span class="li1408-count" id="li1408-count">000%</span>
+        </div>
+        <div class="li1408-track">
+          <div class="li1408-bar" id="li1408-bar"></div>
+        </div>
+        <div class="li1408-status" id="li1408-status">collecting notes</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="li1408-intro-bottom">
+    <span>learning / life / tech</span>
+    <span>about a tangled mind</span>
+    <span>ready</span>
+  </div>
+</section>
+<div class="li1408-startup-wipe" id="li1408-startup-wipe" aria-hidden="true"></div>
+
+<script is:inline>
+  (() => {
+    const storageKey = "li1408_startup_intro_seen";
+    const intro = document.getElementById("li1408-startup-intro");
+    const wipe = document.getElementById("li1408-startup-wipe");
+    if (!intro || !wipe) return;
+
+    const params = new URLSearchParams(window.location.search);
+    const forceIntro = params.has("intro");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function hasSeenIntro() {
+      try {
+        return sessionStorage.getItem(storageKey) === "1";
+      } catch {
+        return false;
+      }
+    }
+
+    function markSeen() {
+      try {
+        sessionStorage.setItem(storageKey, "1");
+      } catch {
+        // Session storage can be unavailable in some privacy modes.
+      }
+    }
+
+    function skipIntro() {
+      intro.remove();
+      wipe.remove();
+      document.body.classList.remove("li1408-intro-playing");
+      document.body.classList.add("li1408-intro-complete");
+    }
+
+    if ((!forceIntro && hasSeenIntro()) || reduceMotion) {
+      skipIntro();
+      return;
+    }
+
+    const count = document.getElementById("li1408-count");
+    const bar = document.getElementById("li1408-bar");
+    const status = document.getElementById("li1408-status");
+    const statusTitle = document.getElementById("li1408-status-title");
+    const statusSteps = [
+      [0, "collecting notes", "sorting fragments"],
+      [26, "aligning thoughts", "mapping archive"],
+      [52, "checking projects", "personal system"],
+      [74, "restoring homepage", "almost ready"],
+      [92, "opening li1408", "ready"],
+    ];
+
+    let renderedCount = -1;
+    let renderedStatusIndex = -1;
+    let frame = 0;
+
+    function setProgress(value) {
+      const next = Math.max(0, Math.min(100, Math.round(value)));
+      bar.style.transform = `scaleX(${next / 100})`;
+
+      if (next !== renderedCount) {
+        count.textContent = String(next).padStart(3, "0") + "%";
+        renderedCount = next;
+      }
+
+      let activeIndex = 0;
+      for (let i = 0; i < statusSteps.length; i += 1) {
+        if (next >= statusSteps[i][0]) activeIndex = i;
+      }
+
+      if (activeIndex !== renderedStatusIndex) {
+        const active = statusSteps[activeIndex];
+        status.textContent = active[1];
+        statusTitle.textContent = active[2];
+        renderedStatusIndex = activeIndex;
+      }
+    }
+
+    function runCounter(duration = 3150) {
+      cancelAnimationFrame(frame);
+      const start = performance.now();
+
+      function tick(now) {
+        const elapsed = now - start;
+        const raw = Math.min(1, elapsed / duration);
+        const eased = raw * raw * (3 - 2 * raw);
+        const jitter = raw > 0.12 && raw < 0.88 ? Math.sin(raw * 22) * 1.7 : 0;
+        setProgress(eased * 100 + jitter);
+
+        if (raw < 1) {
+          frame = requestAnimationFrame(tick);
+        } else {
+          setProgress(100);
+        }
+      }
+
+      frame = requestAnimationFrame(tick);
+    }
+
+    document.body.classList.remove("li1408-intro-complete");
+    document.body.classList.add("li1408-intro-playing");
+    setProgress(0);
+    markSeen();
+    runCounter();
+
+    window.setTimeout(() => {
+      intro.classList.add("is-leaving");
+    }, 3300);
+
+    window.setTimeout(() => {
+      document.body.classList.add("li1408-intro-revealing");
+    }, 3850);
+
+    window.setTimeout(() => {
+      cancelAnimationFrame(frame);
+      intro.remove();
+      wipe.remove();
+      document.body.classList.remove("li1408-intro-playing");
+    }, 4620);
+
+    window.setTimeout(() => {
+      document.body.classList.remove("li1408-intro-revealing");
+      document.body.classList.add("li1408-intro-complete");
+    }, 4960);
+  })();
+</script>
