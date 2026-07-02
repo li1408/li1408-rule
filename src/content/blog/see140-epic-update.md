@@ -2,7 +2,7 @@
 title: "see140 迎来史诗级更新：模式切换、风力控制和粒子反馈"
 description: "一次围绕手势控制、风力系统、粒子反馈和测试补强的 see140 更新记录。"
 pubDate: "2026-07-02T20:30:00+08:00"
-heroImage: "/see140-hero.png"
+heroImage: "/see140-epic-update-hero.png"
 badge: "更新记录"
 tags: ["Codex", "see140", "视觉交互", "个人研究"]
 ---
