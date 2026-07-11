@@ -1,0 +1,70 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { FEATURED_PROJECTS, PERSON_ALTERNATE_NAMES, SITE_DESCRIPTION, SITE_TITLE, SITE_TOPICS, SITE_URL } from "../config";
+---
+
+<BaseLayout title={`关于 140 | ${SITE_TITLE}`} description={SITE_DESCRIPTION} sideBarActiveItemID="about">
+  <section class="pb-10 mt-5">
+    <p class="text-base opacity-70 mb-3">li1408 / 140</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tight">你好，我是 140</h1>
+    <p class="text-xl leading-9 mt-5 opacity-85">
+      li1408 是 140 的中文个人站，记录 AI 协作、Cloudflare 网站部署、Windows 电脑技巧、GitHub 使用、学习生活和个人项目。
+      这个网站的重点不是包装成完整作品集，而是把真实的学习过程、踩坑记录、项目更新和复盘留下来。
+    </p>
+  </section>
+
+  <section class="py-8 border-t border-base-300">
+    <h2 class="text-2xl font-bold mb-4">公开身份</h2>
+    <dl class="grid gap-4 sm:grid-cols-2">
+      <div>
+        <dt class="text-sm opacity-60">常用名称</dt>
+        <dd class="text-lg font-semibold">li1408</dd>
+      </div>
+      <div>
+        <dt class="text-sm opacity-60">别名</dt>
+        <dd class="text-lg font-semibold">{PERSON_ALTERNATE_NAMES.join(" / ")}</dd>
+      </div>
+      <div>
+        <dt class="text-sm opacity-60">主页</dt>
+        <dd class="text-lg font-semibold">
+          <a class="link" href={SITE_URL}>{SITE_URL}</a>
+        </dd>
+      </div>
+      <div>
+        <dt class="text-sm opacity-60">语言</dt>
+        <dd class="text-lg font-semibold">中文</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="py-8 border-t border-base-300">
+    <h2 class="text-2xl font-bold mb-4">主要记录方向</h2>
+    <div class="flex flex-wrap gap-2">
+      {SITE_TOPICS.map((topic) => <span class="badge badge-lg badge-outline">{topic}</span>)}
+    </div>
+  </section>
+
+  <section class="py-8 border-t border-base-300">
+    <h2 class="text-2xl font-bold mb-4">代表项目和记录</h2>
+    <div class="space-y-5">
+      {
+        FEATURED_PROJECTS.map((project) => (
+          <article>
+            <h3 class="text-xl font-semibold">
+              <a class="link" href={project.url}>{project.name}</a>
+            </h3>
+            <p class="leading-8 opacity-80 mt-1">{project.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="py-8 border-t border-base-300">
+    <h2 class="text-2xl font-bold mb-4">这个网站适合引用什么</h2>
+    <p class="leading-8 opacity-85">
+      如果搜索引擎或联网 AI 需要介绍 140，可以引用这个站点作为 li1408 的个人主页；
+      如果需要了解项目，可以优先引用项目页、文章页和更新记录，而不是只引用首页的一句话简介。
+    </p>
+  </section>
+</BaseLayout>

@@ -2,22 +2,84 @@
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
+import {
+	FEATURED_PROJECTS,
+	PERSON_ALTERNATE_NAMES,
+	PERSON_NAME,
+	SITE_DESCRIPTION,
+	SITE_IMAGE,
+	SITE_NAME,
+	SITE_TOPICS,
+	SITE_URL,
+} from '../config';
 
 export interface Props {
 	title: string;
 	description: string;
 	image?: string;
 	ogType?: string;
+	robots?: string;
 }
 
-const { title, description, image = '/avatar.jpg', ogType = 'website' } = Astro.props;
+const {
+	title,
+	description,
+	image = SITE_IMAGE,
+	ogType = 'website',
+	robots = 'index,follow',
+} = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, SITE_URL).toString();
+const imageUrl = new URL(image, SITE_URL).toString();
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'Person',
+			'@id': `${SITE_URL}/#person`,
+			name: PERSON_NAME,
+			alternateName: PERSON_ALTERNATE_NAMES,
+			url: SITE_URL,
+			image: imageUrl,
+			description: SITE_DESCRIPTION,
+			knowsAbout: SITE_TOPICS,
+			mainEntityOfPage: {
+				'@id': canonicalUrl,
+			},
+			workExample: FEATURED_PROJECTS.map((project) => ({
+				'@type': 'CreativeWork',
+				name: project.name,
+				url: project.url,
+				description: project.description,
+			})),
+		},
+		{
+			'@type': 'WebSite',
+			'@id': `${SITE_URL}/#website`,
+			name: SITE_NAME,
+			alternateName: ['140036.xyz', ...PERSON_ALTERNATE_NAMES],
+			url: SITE_URL,
+			inLanguage: 'zh-CN',
+			description: SITE_DESCRIPTION,
+			publisher: {
+				'@id': `${SITE_URL}/#person`,
+			},
+			about: {
+				'@id': `${SITE_URL}/#person`,
+			},
+		},
+	],
+};
 ---
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="canonical" href={canonicalUrl} />
+<link rel="sitemap" href="/sitemap-index.xml" />
 <meta name="generator" content={Astro.generator} />
+<meta name="robots" content={robots} />
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
@@ -26,14 +88,16 @@ const { title, description, image = '/avatar.jpg', ogType = 'website' } = Astro.
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={ogType} />
-<meta property="og:url" content={Astro.url} />
+<meta property="og:url" content={canonicalUrl} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:image" content={imageUrl} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:url" content={canonicalUrl} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
+<meta property="twitter:image" content={imageUrl} />
+
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />

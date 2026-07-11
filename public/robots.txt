@@ -1,2 +1,39 @@
+# Search indexing and AI grounding are allowed. Model training is not granted.
 User-agent: *
+Content-Signal: search=yes,ai-input=yes,ai-train=no,use=reference
 Allow: /
+
+# AI/search crawlers that should be able to discover and cite this site.
+User-agent: Bytespider
+Allow: /
+
+User-agent: ToutiaoSpider
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+# Training or broad data-collection crawlers are not allowed.
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+Sitemap: https://140036.xyz/sitemap.xml
+Sitemap: https://140036.xyz/sitemap-index.xml
