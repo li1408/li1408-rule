@@ -2,6 +2,7 @@
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import NavigationMotion from "../components/NavigationMotion.astro";
 import SideBar from "../components/SideBar.astro";
 import StartupIntro from "../components/StartupIntro.astro";
 import { ViewTransitions } from "astro:transitions";
@@ -25,6 +26,7 @@ const showStartupIntro = Astro.url.pathname === "/";
   <head>
     <BaseHead title={title} description={description} image={image} ogType={ogType} />
     {TRANSITION_API && <ViewTransitions />}
+    {TRANSITION_API && <NavigationMotion />}
   </head>
   <body>
     {showStartupIntro && <StartupIntro />}

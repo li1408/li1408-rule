@@ -1,14 +1,31 @@
 ---
-const { title, img, desc, url, badge, tags, target = "_blank", actionLabel } =
-  Astro.props;
+const {
+  title,
+  img,
+  desc,
+  url,
+  badge,
+  tags,
+  target = "_blank",
+  actionLabel,
+  prefetch,
+} = Astro.props;
 import { Image } from "astro:assets";
 const tag_url = url.split("/").slice(0, -1).join("/") + "/tag";
+const prefetchStrategy =
+  prefetch ??
+  (target === "_self" && url.startsWith("/blog/") ? "viewport" : undefined);
 ---
 
 <div
   class="rounded-lg bg-base-100 hover:shadow-xl transition ease-in-out hover:scale-[102%]"
 >
-  <a href={url} target={target} rel={target === "_blank" ? "noopener noreferrer" : undefined}>
+  <a
+    href={url}
+    target={target}
+    rel={target === "_blank" ? "noopener noreferrer" : undefined}
+    data-astro-prefetch={prefetchStrategy}
+  >
     <div class="hero-content flex-col md:flex-row">
       {
         img && (

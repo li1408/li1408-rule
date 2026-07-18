@@ -26,6 +26,9 @@ dependencies:
   dayjs:
     specifier: ^1.11.9
     version: 1.11.9
+  nprogress:
+    specifier: ^0.2.0
+    version: 0.2.0
   sharp:
     specifier: ^0.32.6
     version: 0.32.6
@@ -2865,6 +2868,10 @@ packages:
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dependencies:
       path-key: 4.0.0
+    dev: false
+
+  /nprogress@0.2.0:
+    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
     dev: false
 
   /object-assign@4.1.1:
