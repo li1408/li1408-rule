@@ -1,9 +1,8 @@
 ---
 title: "构建可复现的数学建模工作流：从代码执行到证据链与质量门禁"
 description: "记录我如何把数学建模工作流从能运行升级为可复现、可审查的质量闭环：逐问故事板、数据契约、运行追踪、证据链、人工门禁与匿名提交。"
-pubDate: "2026-07-15T20:30:00+08:00"
-updatedDate: "2026-07-18"
-heroImage: "/category-research-notes.webp"
+pubDate: "2026-07-18T20:30:00+08:00"
+heroImage: "/math-workflow-quality-hero.png"
 badge: "工作流"
 tags: ["数学建模", "工作流", "个人研究", "GitHub"]
 ---
