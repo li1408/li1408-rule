@@ -20,11 +20,9 @@ function countMatches(source, pattern) {
   return source.match(pattern)?.length ?? 0;
 }
 
-test("homepage embeds the workflow collection without adding another category card", () => {
-  assert.equal(countMatches(homepage, /data-workflow-collection/g), 2);
-  assert.equal(countMatches(homepage, /data-workflow-variant="compact"/g), 1);
-  assert.equal(countMatches(homepage, /data-workflow-variant="feed"/g), 1);
-  assert.equal(countMatches(homepage, /data-workflow-series-entry/g), 8);
+test("homepage does not render the workflow collection", () => {
+  assert.equal(countMatches(homepage, /data-workflow-collection/g), 0);
+  assert.equal(countMatches(homepage, /data-workflow-series-entry/g), 0);
 });
 
 test("blog index replaces four standalone workflow cards with one expandable collection", () => {
