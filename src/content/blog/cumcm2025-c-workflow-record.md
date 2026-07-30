@@ -4,6 +4,7 @@ description: "记录我如何把 2025 CUMCM C 题从数据审计推进到四问�
 pubDate: "2026-07-22T16:00:00+08:00"
 heroImage: "/cumcm2025-c-workflow-hero.webp"
 badge: "建模实录"
+series: "math-modeling-workflow"
 tags: ["数学建模", "CUMCM", "Python", "LaTeX", "可复现研究", "工作流", "个人研究"]
 ---
 

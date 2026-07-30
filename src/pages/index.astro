@@ -1,12 +1,14 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HorizontalCard from "../components/HorizontalCard.astro";
+import WorkflowCollection from "../components/WorkflowCollection.astro";
 import { getCollection } from "astro:content";
 import createSlug from "../lib/createSlug"
+import { createBlogFeed, getWorkflowPosts } from "../lib/blogFeed";
 
 const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-
-const last_posts = posts.slice(0, 3);
+const workflowPosts = getWorkflowPosts(posts);
+const latestItems = createBlogFeed(posts).slice(0, 3);
 ---
 
 <BaseLayout sideBarActiveItemID="home">
@@ -39,6 +41,7 @@ const last_posts = posts.slice(0, 3);
     target="_self"
     badge="研究中"
   />
+  <WorkflowCollection posts={workflowPosts} variant="compact" />
   <div class="divider my-0"></div>
   <HorizontalCard
     title="电脑技巧分享"
@@ -63,16 +66,20 @@ const last_posts = posts.slice(0, 3);
   </div>
 
   {
-    last_posts.map((post) => (
+    latestItems.map((item) => (
       <>
-        <HorizontalCard
-          title={post.data.title}
-          img={post.data.heroImage}
-          desc={post.data.description}
-          url={"/blog/" + createSlug(post.data.title, post.slug)}
-          target="_self"
-          badge={post.data.badge}
-        />
+        {item.kind === "workflow-collection" ? (
+          <WorkflowCollection posts={item.posts} variant="feed" />
+        ) : (
+          <HorizontalCard
+            title={item.post.data.title}
+            img={item.post.data.heroImage}
+            desc={item.post.data.description}
+            url={"/blog/" + createSlug(item.post.data.title, item.post.slug)}
+            target="_self"
+            badge={item.post.data.badge}
+          />
+        )}
         <div class="divider my-0" />
       </>
     ))

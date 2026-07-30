@@ -4,6 +4,7 @@ description: "记录我用 VS Code、MiKTeX、Python、Codex 和 GitHub 搭建�
 pubDate: "2026-07-15T20:30:00+08:00"
 heroImage: "/math-workflow-build-hero.png"
 badge: "工作流"
+series: "math-modeling-workflow"
 tags: ["数学建模", "工作流", "个人研究", "GitHub"]
 ---
 

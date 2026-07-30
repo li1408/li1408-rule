@@ -4,6 +4,7 @@ description: "记录我如何把数学建模工作流从能运行升级为可复
 pubDate: "2026-07-18T20:30:00+08:00"
 heroImage: "/math-workflow-quality-hero.png"
 badge: "工作流"
+series: "math-modeling-workflow"
 tags: ["数学建模", "工作流", "个人研究", "GitHub"]
 ---
 
