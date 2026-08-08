@@ -4,7 +4,7 @@ description: "从网上找健身软件，到把自己的想法做成一个能装
 pubDate: "2026-08-09T00:20:00+08:00"
 heroImage: "/setflow-hero.png"
 badge: "第一个软件"
-tags: ["SetFlow", "个人创作", "健身", "Codex"]
+tags: ["SetFlow", "个人创作", "健身", "Codex", "个人研究"]
 ---
 
 作者：140
@@ -76,6 +76,8 @@ tags: ["SetFlow", "个人创作", "健身", "Codex"]
 ## 下载 SetFlow
 
 [下载 SetFlow 0.1.1（Android APK）](/downloads/SetFlow-v0.1.1-android-universal-debug.apk)
+
+[查看 SetFlow 的 GitHub 仓库](https://github.com/li1408/SetFlow)
 
 文件大小约 4.15 MB，适用于 Android 7 及以上系统。它目前是我自己制作的第一版体验包，没有上架应用商店，所以安装时系统可能会询问是否允许安装来自浏览器或文件管理器的应用。
 
