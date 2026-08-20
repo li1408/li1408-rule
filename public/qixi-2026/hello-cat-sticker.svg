@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 130" role="img" aria-labelledby="title">
+  <title id="title">戴粉色蝴蝶结的白色小猫贴纸</title>
+  <g fill="none" stroke="#302a27" stroke-linecap="round" stroke-linejoin="round" stroke-width="5">
+    <path fill="#fff" d="M27 40 17 15l30 13c10-6 22-9 36-9 15 0 28 3 38 9l25-13-6 29c7 9 10 19 10 30 0 29-28 48-67 48S16 103 16 74c0-13 4-24 11-34Z"/>
+    <path d="M47 68v9M111 68v9"/>
+    <ellipse cx="80" cy="80" rx="8" ry="6" fill="#f4c65c"/>
+    <path d="M8 74h25M7 87l27-4M127 74h25M126 83l27 4"/>
+  </g>
+  <g stroke="#8b3848" stroke-linejoin="round" stroke-width="4">
+    <path fill="#f6a8bb" d="M111 24c-8-12-21-12-25-2-4 11 7 20 25 18Z"/>
+    <path fill="#f6a8bb" d="M119 23c8-12 22-11 25 0 3 10-8 19-26 16Z"/>
+    <circle cx="115" cy="31" r="9" fill="#e85f73"/>
+  </g>
+</svg>
