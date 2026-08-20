@@ -2,7 +2,7 @@
 title: "她忽然出现在楼下"
 description: "一次计划之外的见面，一顿有点失败的饭，还有她真正走进我日常生活的那个七夕。"
 pubDate: "2026-08-20"
-heroImage: "/category-inner-journey.webp"
+heroImage: "/qixi-2026/02-couple-close.webp"
 badge: "七夕"
 tags: ["心理历程", "生活记录", "恋爱", "七夕"]
 ---
